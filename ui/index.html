@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Isle Version Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="manifests.js" defer></script>
+  <script src="server-config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <aside>
+    <div class="brand">The Isle<small>Version Manager</small></div>
+    <nav aria-label="Launcher">
+      <button data-view="game" aria-current="page">Play</button>
+      <button data-view="downloads">Downloads</button>
+      <button data-view="server">Dedicated server</button>
+    </nav>
+    <button data-view="settings" class="settings-nav">Settings</button>
+  </aside>
+  <main>
+    <header><h1 id="heading">Play</h1><p id="intro">Launch an installed game version.</p></header>
+    <section id="instances" aria-label="Installed instances">
+      <table hidden><thead><tr><th scope="col">Instance</th><th scope="col">Actions</th></tr></thead><tbody id="installed-rows"></tbody></table>
+      <p id="empty-instances"></p>
+      <button class="link" id="get-instances" data-view="downloads">Go to downloads</button>
+    </section>
+    <section id="build-view" aria-label="Version library" hidden>
+      <div class="section-header"><h2>Versions</h2><button id="add" disabled>Add version</button></div>
+      <table>
+        <thead><tr><th scope="col">Version</th><th scope="col">Game</th><th scope="col">Server</th></tr></thead>
+        <tbody id="versions"></tbody>
+      </table>
+      <div id="setup-hint" hidden><strong>DepotDownloader required</strong><p>Set up the download tool in <button class="link" data-view="settings">Settings</button> to install a version.</p></div>
+    </section>
+    <form id="settings" hidden>
+      <label>Builds folder<input id="library-path" required spellcheck="false"></label>
+      <small>Changing folders switches libraries. Existing files stay in their original location.</small>
+      <label>DepotDownloader executable<input id="tool-path" placeholder="Use the bundled tool or search PATH" spellcheck="false"></label>
+      <small>The portable build includes this tool. For a source build, install it with Windows Package Manager and restart, or enter its full path.</small>
+      <code>winget install --exact --id SteamRE.DepotDownloader</code>
+      <label>Steam account name <span>(optional)</span><input id="username" autocomplete="off" spellcheck="false"></label>
+      <small>Leave blank to use QR sign-in for games and historical Spiro servers. Other server downloads use anonymous access.</small>
+      <div class="actions"><button class="primary">Save settings</button></div>
+    </form>
+    <p id="notice" role="status" aria-live="polite"></p>
+  </main>
+  <dialog id="editor" aria-labelledby="editor-title">
+    <form id="add-form">
+      <h2 id="editor-title">Add version</h2>
+      <label>Release<select id="release" autofocus></select></label>
+      <div class="catalog-status"><small id="catalog-status" role="status"></small><button type="button" class="link" id="reload-manifests">Refresh</button></div>
+      <label>Version name<input name="name" maxlength="80" required placeholder="e.g. Isla Spiro"></label>
+      <label>Steam branch<input name="branch" value="public" required maxlength="80" spellcheck="false"></label>
+      <label>Game manifest ID<input name="game" inputmode="numeric" pattern="[1-9][0-9]*" maxlength="20"></label>
+      <button type="button" class="link" data-history="game">Browse game history</button>
+      <label>Server manifest ID <span>(optional)</span><input name="server" inputmode="numeric" pattern="[1-9][0-9]*" maxlength="20"></label>
+      <button type="button" class="link" data-history="server">Browse server history</button>
+      <p class="hint">For another release, browse its SteamDB history here and paste the manifest ID or Steam console command.</p>
+      <p class="dialog-error" role="alert"></p>
+      <div class="actions"><button class="primary">Add version</button><button type="button" data-close>Cancel</button></div>
+    </form>
+  </dialog>
+  <dialog id="favorite-editor" aria-labelledby="favorite-title">
+    <form id="favorite-form">
+      <h2 id="favorite-title">Steam Favorites</h2>
+      <p id="favorite-instance"></p>
+      <label>Server IPv4 address and query port<input id="favorite-address" required spellcheck="false"></label>
+      <small>Use 127.0.0.1 when playing on the server PC.</small>
+      <button id="favorite-check" type="button">Check server</button>
+      <p id="favorite-result" role="status"></p>
+      <label>Game port<input id="favorite-port" type="number" min="1" max="65535" required></label>
+      <p class="dialog-error" role="alert"></p>
+      <div class="actions"><button id="favorite-save" class="primary" disabled>Add to Steam Favorites</button><button type="button" data-close>Close</button></div>
+    </form>
+  </dialog>
+  <dialog id="config-editor" aria-labelledby="config-title">
+    <form id="config-form">
+      <h2 id="config-title">Server configuration</h2><p id="config-version"></p>
+      <label>Admin SteamID64<input id="admin-id" inputmode="numeric" maxlength="17" spellcheck="false" placeholder="17-digit Steam ID"></label>
+      <div class="config-actions"><button type="button" id="my-id" hidden>Use my Steam ID</button><button type="button" id="add-admin">Add admin to config</button></div>
+      <small id="admin-feedback" role="status"></small>
+      <label>Game.ini<textarea id="config-text" rows="12" spellcheck="false"></textarea></label>
+      <small>Stop the server before editing. Start it again to apply saved settings.</small>
+      <p class="dialog-error" role="alert"></p>
+      <div class="actions"><button class="primary">Save configuration</button><button type="button" data-close>Cancel</button></div>
+    </form>
+  </dialog>
+  <dialog id="options" aria-labelledby="options-title">
+    <form id="args-form">
+      <h2 id="options-title">Server arguments</h2>
+      <p id="args-version"></p>
+      <label>One argument per line<textarea id="args" rows="5" spellcheck="false"></textarea></label>
+      <small>Enter any map or launch options required by this server build.</small>
+      <p class="dialog-error" role="alert"></p>
+      <div class="actions"><button class="primary">Save arguments</button><button type="button" data-close>Cancel</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

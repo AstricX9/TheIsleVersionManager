@@ -1,0 +1,64 @@
+:root {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  color: #222924;
+  background: #fafbf9;
+  font-size: 14px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; display: grid; grid-template-columns: 182px 1fr; min-height: 100vh; }
+aside { background: #edf0eb; border-right: 1px solid #cbd1ca; padding: 30px 14px 18px; display: flex; flex-direction: column; height: 100vh; position: sticky; top: 0; }
+.brand { font-size: 25px; font-weight: 650; letter-spacing: -.05em; padding: 0 10px 30px; }
+.brand small { display: block; letter-spacing: 0; font-size: 13px; font-weight: 400; margin-top: 2px; }
+nav { display: grid; gap: 4px; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; border: 1px solid #b8c1b9; padding: 7px 12px; background: #fff; color: inherit; border-radius: 4px; font-weight: 500; }
+button:hover { background: #f0f3ee; }
+button:disabled { opacity: .55; cursor: default; }
+:focus-visible { outline: 2px solid #34734e; outline-offset: 2px; }
+aside button { text-align: left; background: transparent; border: 0; padding: 10px; }
+aside button[aria-current] { background: #d7e1d6; color: #233d2b; font-weight: 650; }
+.settings-nav { margin-top: auto; }
+main { padding: 34px clamp(24px, 4vw, 52px); min-width: 0; max-width: 1140px; width: 100%; }
+h1, h2, p { margin: 0; }
+h1 { font-size: 29px; font-weight: 650; letter-spacing: -.035em; }
+h2 { font-size: 17px; font-weight: 620; letter-spacing: -.015em; }
+p, small { line-height: 1.5; }
+header p, .hint, small, dialog > form > p { color: #505d52; }
+header { border-bottom: 1px solid #cbd1ca; padding-bottom: 23px; margin-bottom: 26px; }
+header p { margin-top: 5px; }
+.section-header, .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.section-header { justify-content: space-between; margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; text-align: left; border-block: 1px solid #cbd1ca; }
+th, td { padding: 11px 9px; border-bottom: 1px solid #dce1da; overflow-wrap: anywhere; }
+th { color: #596359; font-size: 12px; font-weight: 550; background: #f1f3ef; }
+td label { margin: 0; display: flex; gap: 9px; align-items: center; font-weight: 550; cursor: pointer; }
+td input { width: auto; margin: 0; accent-color: #325a40; }
+tr.selected { background: #eaf1e9; }
+.installed { color: #245334; }
+.actions { margin-top: 18px; }
+.primary { background: #304f39; border-color: #304f39; color: white; }
+.primary:hover { background: #243f2d; }
+.hint { font-size: 13px; margin-top: 11px; }
+#setup-hint { margin-top: 26px; padding: 12px 15px; border: 1px solid #cbd1ca; border-radius: 4px; }
+#setup-hint p { margin-top: 3px; }
+.link { border: 0; padding: 0; background: transparent; color: #2c5939; text-decoration: underline; }
+label { display: block; font-weight: 550; margin-top: 16px; }
+label span { font-weight: 400; color: #596359; }
+input, textarea, select { display: block; width: 100%; padding: 7px 9px; margin-top: 5px; border: 1px solid #aeb8ae; border-radius: 3px; background: white; }
+.catalog-status { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+small { display: block; font-size: 12px; margin: 5px 0; }
+code { display: block; margin-top: 8px; padding: 8px 10px; background: #edf0eb; overflow-wrap: anywhere; }
+#notice:not(:empty) { padding: 12px 0; margin-top: 12px; border-top: 1px solid #cbd1ca; }
+.error, .dialog-error { color: #8e3328; }
+dialog { width: min(445px, 92vw); max-height: 90vh; border: 1px solid #aeb8ae; padding: 23px; border-radius: 5px; color: inherit; }
+dialog::backdrop { background: rgb(26 34 28 / 30%); }
+dialog h2 + p { margin-top: 6px; }
+dialog .link { margin-top: 5px; font-size: 12px; }
+dialog .dialog-error:not(:empty) { margin-top: 10px; color: #8e3328; }
+.row-actions, .config-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.config-actions, #get-instances { margin-top: 8px; }
+#config-editor { width: min(600px, 92vw); }
+#config-text { font-family: Consolas, monospace; resize: vertical; }
+td .link { margin-top: 5px; }

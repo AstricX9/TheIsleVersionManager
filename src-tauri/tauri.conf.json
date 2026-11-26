@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "The Isle Version Manager",
+  "version": "0.1.0",
+  "identifier": "local.theisle.versionmanager",
+  "build": { "frontendDist": "../ui" },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [{
+      "title": "The Isle Version Manager", "width": 960, "height": 650,
+      "minWidth": 720, "minHeight": 530
+    }],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; connect-src ipc: http://ipc.localhost https://api.steamcmd.net; object-src 'none'; base-uri 'none'; form-action 'none'"
+    }
+  },
+  "bundle": { "active": true, "targets": ["nsis"], "icon": ["icons/icon.ico"] }
+}
